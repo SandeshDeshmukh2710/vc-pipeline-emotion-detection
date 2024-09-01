@@ -48,12 +48,12 @@ stages:
       size: 3121
     params:
       params.yaml:
-        feature_engineering.max_features: 100
+        feature_engineering.max_features: 50
     outs:
     - path: data/processed
       hash: md5
-      md5: ea009dca5818bf0b34ad79d8158bb705.dir
-      size: 2802603
+      md5: 23904c35e50ee843888a5a145c952cfe.dir
+      size: 1422003
       nfiles: 2
   model_building:
     cmd: python src/model/model_building.py
