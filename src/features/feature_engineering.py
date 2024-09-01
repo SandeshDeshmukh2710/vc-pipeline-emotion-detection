@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import os
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 import yaml
 import logging
 
@@ -48,7 +48,7 @@ def process_data(train_data: pd.DataFrame, test_data: pd.DataFrame, max_features
         train_data.fillna('', inplace=True)
         test_data.fillna('', inplace=True)
         
-        vectorizer = CountVectorizer(max_features=max_features)
+        vectorizer = TfidfVectorizer(max_features=max_features)
 
         X_train_bow = vectorizer.fit_transform(train_data['content'].values)
         X_test_bow = vectorizer.transform(test_data['content'].values)
@@ -68,8 +68,8 @@ def process_data(train_data: pd.DataFrame, test_data: pd.DataFrame, max_features
 def save_data(data_path: str, train_df: pd.DataFrame, test_df: pd.DataFrame) -> None:
     try:
         os.makedirs(data_path, exist_ok=True)
-        train_df.to_csv(os.path.join(data_path, "train_bow.csv"), index=False)
-        test_df.to_csv(os.path.join(data_path, "test_bow.csv"), index=False)
+        train_df.to_csv(os.path.join(data_path, "train_tfidf.csv"), index=False)
+        test_df.to_csv(os.path.join(data_path, "test_tfidf.csv"), index=False)
         logger.debug(f"Processed data saved successfully in {data_path}")
     except Exception as e:
         logger.error(f"Failed to save processed data: {e}")
